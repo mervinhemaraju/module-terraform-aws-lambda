@@ -22,5 +22,5 @@ output "lambda_role_name" {
 
 # > Scheduler 
 output "scheduler_arn" {
-  value = try(aws_scheduler_schedule.lambda_scheduler.arn, "")
+  value = try(aws_scheduler_schedule.lambda_scheduler[0].arn, "")
 }
