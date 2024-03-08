@@ -20,20 +20,20 @@ module "lambda_function" {
   source_path = var.source_path
 
   timeout                   = var.timeout
-  create_async_event_config = false
-  maximum_retry_attempts    = 0
+  create_async_event_config = local.lambda.create_async_event_config
+  maximum_retry_attempts    = local.lambda.maximum_retry_attempts
 
   # * Policies attachment
   policies           = var.policies_arns
-  attach_policies    = local.attach_policies
-  number_of_policies = length(var.policies_arns)
+  attach_policies    = local.lambda.attach_policies
+  number_of_policies = local.lambda.number_of_policies
 
   # * Role Attachment
   lambda_role = var.lambda_role_arn
-  create_role = var.lambda_role_arn == null
+  create_role = local.lambda.create_role
 
   # * Publish the function
-  publish = true
+  publish = local.lambda.publish
 
   # * Environment variables
   environment_variables = var.environment_variables
@@ -41,12 +41,5 @@ module "lambda_function" {
   # * Tags
   tags = var.tags
 
-  trusted_entities = [
-    {
-      type = "Service",
-      identifiers = [
-        "lambda.amazonaws.com"
-      ]
-    }
-  ]
+  trusted_entities = local.lambda.trusted_entities
 }

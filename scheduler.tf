@@ -1,21 +1,21 @@
 
 resource "aws_scheduler_schedule_group" "lambda_trigger" {
   count = var.cron != null && var.schedule_group == null ? 1 : 0
-  name  = "schedule-group-for-${var.function_name}"
+  name  = local.schedule_group.name
 }
 
 resource "aws_scheduler_schedule" "lambda_scheduler" {
 
   count = var.cron != null ? 1 : 0
 
-  name                = "schedule-for-${var.function_name}"
-  description         = "The scheduler for lambda function ${var.function_name}"
+  name                = local.scheduler.name
+  description         = local.scheduler.description
   group_name          = var.schedule_group != null ? var.schedule_group : aws_scheduler_schedule_group.lambda_trigger[0].name
   schedule_expression = var.cron
-  state               = "ENABLED"
+  state               = local.scheduler.state
 
   flexible_time_window {
-    mode = "OFF"
+    mode = local.scheduler.flexible_time_window_mode
   }
 
   target {
@@ -23,7 +23,7 @@ resource "aws_scheduler_schedule" "lambda_scheduler" {
     role_arn = var.schedule_role_arn
 
     retry_policy {
-      maximum_retry_attempts = 0
+      maximum_retry_attempts = local.scheduler.maximum_retry_attempts
     }
 
     input = var.scheduler_lambda_payload
