@@ -9,7 +9,7 @@ resource "aws_iam_role" "schedule_role" {
         Action = "sts:AssumeRole",
         Effect = "Allow",
         Principal = {
-          Service = "events.amazonaws.com"
+          Service = "scheduler.amazonaws.com"
         }
       }
     ]
