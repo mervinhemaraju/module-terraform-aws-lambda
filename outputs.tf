@@ -19,3 +19,8 @@ output "lambda_role_name" {
   description = "The name of the IAM role created for the Lambda Function"
   value       = try(module.lambda_function.lambda_role_name, "")
 }
+
+# > Scheduler 
+output "scheduler_arn" {
+  value = try(aws_scheduler_schedule.lambda_scheduler.arn, "")
+}
