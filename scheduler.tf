@@ -10,7 +10,7 @@ resource "aws_scheduler_schedule" "lambda_scheduler" {
 
   name                = "schedule-for-${var.function_name}"
   description         = "The scheduler for lambda function ${var.function_name}"
-  group_name          = var.schedule_group != null ? var.schedule_group : aws_scheduler_schedule_group.lambda_trigger.name
+  group_name          = var.schedule_group != null ? var.schedule_group : aws_scheduler_schedule_group.lambda_trigger[0].name
   schedule_expression = var.cron
   state               = "ENABLED"
 
