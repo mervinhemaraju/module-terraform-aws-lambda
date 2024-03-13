@@ -19,6 +19,10 @@ module "lambda_function" {
   # * Source code
   source_path = var.source_path
 
+  create_package = var.create_package
+  package_type   = local.lambda.package_type
+  image_uri      = var.image_uri
+
   timeout                   = var.timeout
   create_async_event_config = local.lambda.create_async_event_config
   maximum_retry_attempts    = local.lambda.maximum_retry_attempts

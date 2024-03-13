@@ -12,7 +12,7 @@ variable "description" {
 variable "source_path" {
   type        = string
   description = "The path to the source code of the Lambda Function."
-  default     = "./"
+  default     = "./function/"
 }
 
 variable "handler" {
@@ -97,4 +97,16 @@ variable "scheduler_lambda_payload" {
   type        = string
   description = "The payload to send to the lambda function (string format)"
   default     = null
+}
+
+variable "image_uri" {
+  type        = string
+  description = "The URI of a container image in the Amazon ECR registry."
+  default     = null
+}
+
+variable "create_package" {
+  type        = bool
+  description = "Whether to create a package for the lambda function."
+  default     = true
 }

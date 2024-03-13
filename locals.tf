@@ -4,6 +4,9 @@ locals {
 
 
   lambda = {
+
+    package_type = var.image_uri != null ? "Image" : "Zip"
+
     attach_policies = length(var.policies_arns) != 0
 
     create_role = var.lambda_role_arn == null
