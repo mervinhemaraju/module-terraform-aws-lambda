@@ -1,5 +1,5 @@
 version: 1
-module_version: 1.1.0
+module_version: 1.1.1
 test_defaults:
   before_init: ["terraform fmt -check"]
   runner_image: ghcr.io/mervinhemaraju/spacelift-runner-image:prod
